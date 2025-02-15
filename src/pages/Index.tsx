@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { StockTicker } from "@/components/StockTicker";
 import { NewsCard } from "@/components/NewsCard";
@@ -12,15 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const initialStockData = [
-  { symbol: "IONQ", name: "IonQ, Inc.", price: 37.46, change: -3.08 },
-  { symbol: "DRTS", name: "D-Wave Quantum Inc.", price: 6.37, change: -2.00 },
-  { symbol: "TLT", name: "iShares 20+ Year Treas...", price: 89.15, change: 0.53 },
-  { symbol: "TSLA", name: "Tesla, Inc.", price: 355.84, change: -0.03 },
-  { symbol: "NVDA", name: "NVIDIA Corporation", price: 138.85, change: 2.63 },
-  { symbol: "SPY", name: "SPDR S&P 500 ETF Trust", price: 609.70, change: -0.00 },
-  { symbol: "^VIX", name: "CBOE Volatility Index", price: 14.77, change: -2.19 },
-];
+const initialSymbols = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "META"];
 
 const newsData = [
   {
@@ -39,23 +31,53 @@ const newsData = [
 ];
 
 const Index = () => {
-  const [stocks, setStocks] = useState(initialStockData);
+  const [stocks, setStocks] = useState<Array<{
+    symbol: string;
+    name: string;
+    price: number;
+    change: number;
+    chartData?: number[];
+  }>>([]);
   const [newSymbol, setNewSymbol] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const handleAddSymbol = (e: React.FormEvent) => {
+  const fetchStockData = async (symbols: string[]) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/stocks/${symbols.join(',')}`);
+      const data = await response.json();
+      setStocks(data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchStockData(initialSymbols);
+    // Refresh data every minute
+    const interval = setInterval(() => {
+      fetchStockData(initialSymbols);
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleAddSymbol = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newSymbol) return;
 
-    // In a real app, you would fetch the company details from an API
-    const mockNewStock = {
-      symbol: newSymbol.toUpperCase(),
-      name: `${newSymbol.toUpperCase()} Company`,
-      price: Math.random() * 1000,
-      change: (Math.random() * 10) * (Math.random() > 0.5 ? 1 : -1),
-    };
+    try {
+      const response = await fetch(`http://localhost:8000/api/stocks/${newSymbol}`);
+      const data = await response.json();
+      if (!data.error) {
+        setStocks([data, ...stocks]);
+      }
+    } catch (error) {
+      console.error('Error adding symbol:', error);
+    }
 
-    setStocks([mockNewStock, ...stocks]);
     setNewSymbol("");
     setShowAddForm(false);
   };
@@ -95,17 +117,21 @@ const Index = () => {
               )}
 
               <div className="space-y-4">
-                {stocks.map((stock) => (
-                  <div key={stock.symbol} className="relative group">
-                    <StockTicker {...stock} />
-                    <button
-                      onClick={() => handleDeleteSymbol(stock.symbol)}
-                      className="absolute top-2 right-2 p-1 rounded-full bg-news-card opacity-0 group-hover:opacity-100 hover:bg-red-500/20 transition-all"
-                    >
-                      <X className="h-4 w-4 text-news-negative" />
-                    </button>
-                  </div>
-                ))}
+                {loading ? (
+                  <div className="text-center text-news-muted">Loading...</div>
+                ) : (
+                  stocks.map((stock) => (
+                    <div key={stock.symbol} className="relative group">
+                      <StockTicker {...stock} />
+                      <button
+                        onClick={() => handleDeleteSymbol(stock.symbol)}
+                        className="absolute top-2 right-2 p-1 rounded-full bg-news-card opacity-0 group-hover:opacity-100 hover:bg-red-500/20 transition-all"
+                      >
+                        <X className="h-4 w-4 text-news-negative" />
+                      </button>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </SidebarContent>
