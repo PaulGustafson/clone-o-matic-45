@@ -11,12 +11,12 @@ export const StockTicker = ({ symbol, name, price, change }: StockTickerProps) =
   
   return (
     <div className="glass-card p-3 rounded-lg transition-all hover:scale-[1.02] cursor-pointer animate-slideIn">
-      <div className="flex justify-between items-start">
-        <div>
-          <h3 className="font-semibold">{symbol}</h3>
+      <div className="flex justify-between items-start gap-4">
+        <div className="min-w-0 flex-1">
+          <h3 className="font-semibold truncate">{symbol}</h3>
           <p className="text-news-muted text-sm truncate">{name}</p>
         </div>
-        <div className="text-right">
+        <div className="text-right flex-shrink-0">
           <p className="font-semibold">${price.toFixed(2)}</p>
           <p className={`text-sm ${isNegative ? 'text-news-negative' : 'text-green-500'}`}>
             {change > 0 ? '+' : ''}{change.toFixed(2)}%
