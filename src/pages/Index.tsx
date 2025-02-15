@@ -44,12 +44,18 @@ const Index = () => {
 
   const fetchStockData = async (symbols: string[]) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/stocks/${symbols.join(',')}`);
+      const response = await fetch(`http://localhost:8000/api/stocks?symbols=${symbols.join(',')}`);
       const data = await response.json();
-      setStocks(data);
+      if (Array.isArray(data)) {
+        setStocks(data);
+      } else {
+        console.error('Invalid data format received:', data);
+        setStocks([]);
+      }
       setLoading(false);
     } catch (error) {
       console.error('Error fetching stock data:', error);
+      setStocks([]);
       setLoading(false);
     }
   };
@@ -72,7 +78,7 @@ const Index = () => {
       const response = await fetch(`http://localhost:8000/api/stocks/${newSymbol}`);
       const data = await response.json();
       if (!data.error) {
-        setStocks([data, ...stocks]);
+        setStocks(prevStocks => [data, ...prevStocks]);
       }
     } catch (error) {
       console.error('Error adding symbol:', error);
@@ -83,7 +89,7 @@ const Index = () => {
   };
 
   const handleDeleteSymbol = (symbolToDelete: string) => {
-    setStocks(stocks.filter(stock => stock.symbol !== symbolToDelete));
+    setStocks(prevStocks => prevStocks.filter(stock => stock.symbol !== symbolToDelete));
   };
 
   return (
