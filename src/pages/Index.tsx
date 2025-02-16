@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { StockTicker } from "@/components/StockTicker";
@@ -11,6 +10,16 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import stockNewsData from "../../api/stock_news.json";
+
+// Define the type for our news article
+interface NewsArticle {
+  source_name: string;
+  title: string;
+  image_url?: string;
+  pubDate: string;
+  creator?: string | string[];
+}
 
 const initialSymbols = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "META"];
 
@@ -63,11 +72,8 @@ const Index = () => {
 
   const fetchNewsData = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/stock_news.json');
-      const data = await response.json();
-      
       // Flatten and process all news articles from all symbols
-      const allArticles = Object.values(data).flat();
+      const allArticles = Object.values(stockNewsData).flat() as NewsArticle[];
       
       // Transform articles to match NewsCard props format
       const processedNews = allArticles
@@ -83,7 +89,7 @@ const Index = () => {
 
       setNewsData(processedNews);
     } catch (error) {
-      console.error('Error fetching news data:', error);
+      console.error('Error processing news data:', error);
     }
   };
 
