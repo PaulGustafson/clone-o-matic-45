@@ -143,6 +143,63 @@ def get_table_name(file_path: str) -> str:
     """Generate a valid table name from a file path"""
     return f"stock_news_{Path(file_path).stem.lower().replace('-', '_')}"
 
+def get_summary_and_follow_up_questions(prompt: str) -> Tuple[str, List[str]]:
+
+def generate_answer(self, article: Dict, prompt: str) -> List[str]:
+        """Generate insightful questions about a news article using Gemini."""
+        max_retries = 3
+        retry_delay = 2  # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                prompt = f"""
+                Based on this news article:
+                Title: {article['title']}
+                Description: {article.get('description', '')}
+
+                and this
+                
+                Generate 3 insightful, analytical questions that an investor might ask about the implications of this news.
+                Return only a Python list of strings, with each question being a complete sentence ending with a question mark.
+                Focus on market impact, business strategy, and future implications.
+                Example format: ["Question 1?", "Question 2?", "Question 3?"]
+                """
+                
+                response = self.model.generate_content(prompt)
+                response_text = response.text.strip()
+                # Remove any markdown code block indicators
+                response_text = response_text.replace('```python', '').replace('```', '')
+                # Safely evaluate the string as a Python list
+                try:
+                    questions = eval(response_text)
+                    if isinstance(questions, list) and len(questions) >= 3:
+                        return questions[:3]
+                except:
+                    # If eval fails, try to extract questions using string manipulation
+                    questions = [q.strip() for q in response_text.split('?') if q.strip()]
+                    questions = [f"{q}?" for q in questions]
+                    if questions:
+                        return questions[:3]
+                
+                # If we get here, use default questions
+                raise ValueError("Could not parse questions from response")
+                
+            except Exception as e:
+                print(f"Error generating questions (attempt {attempt + 1}/{max_retries}): {str(e)}")
+                if "429" in str(e):  # Rate limit error
+                    time.sleep(retry_delay * (attempt + 1))  # Exponential backoff
+                    continue
+                
+                if attempt == max_retries - 1:  # Last attempt
+                    return [
+                        "What are the potential market implications of this news?",
+                        "How might this affect the company's competitive position?",
+                        "What could be the long-term impact on the industry?"
+                    ]
+            
+            time.sleep(1)  # Small delay between successful calls
+
+
 def main():
     # List of news files to process
     base_path = Path(__file__).parent.parent.parent.parent
@@ -151,7 +208,7 @@ def main():
         for file in os.listdir(base_path / "download_data" / "data")
         if file.endswith('.json')
     ]
-    print(news_files)
+    news_files = news_files[:3]  #FIXME
 
     # Get Together API key
     together_api_key = os.getenv("TOGETHER_API_KEY")
@@ -181,6 +238,8 @@ def main():
         )
         for file in news_files
     ]
+    
+    print('News files:', news_files)
 
     # Initialize knowledge base
     knowledge_base = StockNewsKnowledge(
@@ -203,6 +262,10 @@ def main():
         console.print("[bold blue]Loading news data into vector databases...[/bold blue]")
         knowledge_base.load_all(recreate=True)
         console.print("[bold green]All data loaded successfully![/bold green]")
+    else:
+        knowledge_base.load_all(recreate=False)
+
+
 
     # Create the agent with Gemini model
     gemini_model = Gemini(api_key=gemini_api_key)
@@ -232,4 +295,5 @@ def main():
         agent.print_response(message, stream=True)
 
 if __name__ == "__main__":
+    #get_new_articles("What is the news about Meta?")
     main() 
