@@ -20,9 +20,12 @@
 }
 
 .chart-line {
-  fill: none;
-  stroke: #0A84FF;
   stroke-width: 2;
+  fill: none;
+}
+
+.chart-line-positive {
+  stroke: #22c55e;
 }
 
 .chart-line-negative {

@@ -43,10 +43,12 @@ export const StockTicker = ({ symbol, name, price, change, chartData = [] }: Sto
           </p>
         </div>
       </div>
-      <svg className="w-full h-8 mt-1" viewBox="0 0 100 30">
+      <svg className="w-full h-8 mt-1" viewBox="0 0 100 30" preserveAspectRatio="none">
         <path
           d={getChartPath()}
-          className={`chart-line ${isNegative ? 'chart-line-negative' : ''}`}
+          className={`chart-line ${isNegative ? 'chart-line-negative' : 'chart-line-positive'}`}
+          strokeWidth="2"
+          fill="none"
         />
       </svg>
     </div>
