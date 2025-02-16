@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { StockTicker } from "@/components/StockTicker";
@@ -16,7 +17,7 @@ import stockNewsData from "../../api/stock_news.json";
 interface NewsArticle {
   source_name: string;
   title: string;
-  content: string;
+  description: string;
   pubDate: string;
   questions: string[];  // Add questions field to interface
 }
@@ -83,7 +84,7 @@ const Index = () => {
             .map(article => ({
               source: article.source_name,
               title: article.title,
-              summary: article.content || "No summary available",
+              summary: article.description || "No summary available",
               time: getRelativeTime(article.pubDate),
               questions: article.questions || [] // Use questions from JSON data
             }))
