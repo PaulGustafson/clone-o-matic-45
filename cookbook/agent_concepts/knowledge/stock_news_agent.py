@@ -162,6 +162,15 @@ def main():
         )
         os.environ["TOGETHER_API_KEY"] = together_api_key
 
+    # Get Gemini API key
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
+    if not gemini_api_key:
+        gemini_api_key = Prompt.ask(
+            "[bold yellow]Please enter your Google API key[/bold yellow]",
+            password=True
+        )
+        os.environ["GEMINI_API_KEY"] = gemini_api_key
+
     # Initialize vector databases with TogetherEmbedder
     embedder = TogetherEmbedder(api_key=together_api_key)
     vector_dbs = [
@@ -196,9 +205,8 @@ def main():
         console.print("[bold green]All data loaded successfully![/bold green]")
 
     # Create the agent with Gemini model
-    gemini_model = Gemini()
-    gemini_model.id = "gemini-pro"  # Set model ID after initialization
-    
+    gemini_model = Gemini(api_key=gemini_api_key)
+    gemini_model.id = "gemini-1.5-flash"  # Set model ID after initialization
     agent = Agent(
         model=gemini_model,
         knowledge=knowledge_base,
