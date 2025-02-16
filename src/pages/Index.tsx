@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { StockTicker } from "@/components/StockTicker";
@@ -19,6 +18,7 @@ interface NewsArticle {
   title: string;
   content: string;
   pubDate: string;
+  questions: string[];  // Add questions field to interface
 }
 
 const initialSymbols = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "META"];
@@ -31,16 +31,6 @@ const getRelativeTime = (timestamp: string) => {
   const hours = Math.floor(diff / (1000 * 60 * 60));
   
   return `${hours}h ago`;
-};
-
-// Generate insightful questions based on article content
-const generateQuestions = (content: string): string[] => {
-  const questions = [
-    "What are the potential market implications?",
-    "How might this affect investor sentiment?",
-    "What could be the long-term impact?"
-  ];
-  return questions;
 };
 
 const Index = () => {
@@ -95,7 +85,7 @@ const Index = () => {
               title: article.title,
               summary: article.content || "No summary available",
               time: getRelativeTime(article.pubDate),
-              questions: generateQuestions(article.content || "")
+              questions: article.questions || [] // Use questions from JSON data
             }))
             .slice(0, 3); // Limit to top 3 articles per symbol
         }

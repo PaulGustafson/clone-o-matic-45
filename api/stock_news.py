@@ -8,7 +8,7 @@ import google.generativeai as genai
 import time
 
 class StockNewsAPI:
-    def __init__(self, api_key: str = None, gemini_key: str = "AIzaSyA3d_hTTTUb-uuDfT0qaNnZwEGovAf4cbU"):
+    def __init__(self, api_key: str = None, gemini_key: str = None):
         self.api_key = api_key or os.getenv('NEWSDATA_API_KEY')
         if not self.api_key:
             raise ValueError("NewsData API key is required. Set it as NEWSDATA_API_KEY environment variable or pass it to the constructor.")
