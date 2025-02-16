@@ -14,22 +14,6 @@ import { Input } from "@/components/ui/input";
 
 const initialSymbols = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "META"];
 
-const newsData = [
-  {
-    source: "cheddar",
-    title: "The biggest business stories of the week",
-    imageUrl: "/lovable-uploads/5a40a2f1-0262-44c9-b69c-577df111c31c.png",
-    time: "4h ago",
-  },
-  {
-    source: "POLITICO",
-    title: "\"Like a tornado hit\": Stunned federal workers take stock of mass layoffs — and brace for repercussions",
-    imageUrl: "/lovable-uploads/5a40a2f1-0262-44c9-b69c-577df111c31c.png",
-    time: "4h ago",
-    authors: "Liz Crampton, Marcia Brown, Danny Ngu...",
-  },
-];
-
 const Index = () => {
   const [stocks, setStocks] = useState<Array<{
     symbol: string;
@@ -41,6 +25,13 @@ const Index = () => {
   const [newSymbol, setNewSymbol] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [newsData, setNewsData] = useState<Array<{
+    source: string;
+    title: string;
+    imageUrl: string;
+    time: string;
+    authors?: string;
+  }>>([]);
 
   const fetchStockData = async (symbols: string[]) => {
     try {
@@ -60,8 +51,30 @@ const Index = () => {
     }
   };
 
+  const fetchNewsData = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/news');
+      const data = await response.json();
+      
+      // Process the news data into the required format
+      const processedNews = Object.values(data).flat().map((article: any) => ({
+        source: article.source_id || 'Unknown Source',
+        title: article.title,
+        imageUrl: article.image_url || '/lovable-uploads/5a40a2f1-0262-44c9-b69c-577df111c31c.png',
+        time: new Date(article.pubDate).toLocaleString(),
+        authors: article.creator ? (Array.isArray(article.creator) ? article.creator.join(', ') : article.creator) : undefined
+      })).slice(0, 6); // Limit to 6 articles
+
+      setNewsData(processedNews);
+    } catch (error) {
+      console.error('Error fetching news data:', error);
+      setNewsData([]);
+    }
+  };
+
   useEffect(() => {
     fetchStockData(initialSymbols);
+    fetchNewsData();
     // Refresh data every minute
     const interval = setInterval(() => {
       fetchStockData(initialSymbols);
@@ -153,13 +166,15 @@ const Index = () => {
             </div>
             <div className="flex items-baseline justify-between mb-2">
               <h1 className="text-4xl font-bold">Stocks</h1>
-              <span className="text-xl text-news-muted">February 15</span>
+              <span className="text-xl text-news-muted">
+                {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
+              </span>
             </div>
           </header>
 
           <section>
             <h2 className="text-3xl font-bold mb-6">Top Stories</h2>
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {newsData.map((news, index) => (
                 <NewsCard key={index} {...news} />
               ))}
