@@ -14,21 +14,15 @@ import { Input } from "@/components/ui/input";
 
 const initialSymbols = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "META"];
 
-const newsData = [
-  {
-    source: "cheddar",
-    title: "The biggest business stories of the week",
-    imageUrl: "/lovable-uploads/5a40a2f1-0262-44c9-b69c-577df111c31c.png",
-    time: "4h ago",
-  },
-  {
-    source: "POLITICO",
-    title: "\"Like a tornado hit\": Stunned federal workers take stock of mass layoffs — and brace for repercussions",
-    imageUrl: "/lovable-uploads/5a40a2f1-0262-44c9-b69c-577df111c31c.png",
-    time: "4h ago",
-    authors: "Liz Crampton, Marcia Brown, Danny Ngu...",
-  },
-];
+// Convert API timestamp to relative time
+const getRelativeTime = (timestamp: string) => {
+  const now = new Date();
+  const articleDate = new Date(timestamp);
+  const diff = now.getTime() - articleDate.getTime();
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  
+  return `${hours}h ago`;
+};
 
 const Index = () => {
   const [stocks, setStocks] = useState<Array<{
@@ -41,6 +35,13 @@ const Index = () => {
   const [newSymbol, setNewSymbol] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [newsData, setNewsData] = useState<Array<{
+    source: string;
+    title: string;
+    imageUrl: string;
+    time: string;
+    authors?: string;
+  }>>([]);
 
   const fetchStockData = async (symbols: string[]) => {
     try {
@@ -60,9 +61,36 @@ const Index = () => {
     }
   };
 
+  const fetchNewsData = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/stock_news.json');
+      const data = await response.json();
+      
+      // Flatten and process all news articles from all symbols
+      const allArticles = Object.values(data).flat();
+      
+      // Transform articles to match NewsCard props format
+      const processedNews = allArticles
+        .filter(article => article.title && article.source_name) // Ensure required fields exist
+        .map(article => ({
+          source: article.source_name,
+          title: article.title,
+          imageUrl: article.image_url || '/lovable-uploads/5a40a2f1-0262-44c9-b69c-577df111c31c.png',
+          time: getRelativeTime(article.pubDate),
+          authors: article.creator ? (Array.isArray(article.creator) ? article.creator.join(', ') : article.creator) : undefined
+        }))
+        .slice(0, 6); // Get top 6 articles
+
+      setNewsData(processedNews);
+    } catch (error) {
+      console.error('Error fetching news data:', error);
+    }
+  };
+
   useEffect(() => {
     fetchStockData(initialSymbols);
-    // Refresh data every minute
+    fetchNewsData();
+    // Refresh stock data every minute
     const interval = setInterval(() => {
       fetchStockData(initialSymbols);
     }, 60000);
@@ -153,7 +181,9 @@ const Index = () => {
             </div>
             <div className="flex items-baseline justify-between mb-2">
               <h1 className="text-4xl font-bold">Stocks</h1>
-              <span className="text-xl text-news-muted">February 15</span>
+              <span className="text-xl text-news-muted">
+                {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
+              </span>
             </div>
           </header>
 
