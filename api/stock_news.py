@@ -4,12 +4,18 @@ from datetime import datetime, timedelta
 from typing import List, Dict
 import json
 from pathlib import Path
+import google.generativeai as genai
+import time
 
 class StockNewsAPI:
-    def __init__(self, api_key: str = None):
+    def __init__(self, api_key: str = None, gemini_key: str = "AIzaSyA3d_hTTTUb-uuDfT0qaNnZwEGovAf4cbU"):
         self.api_key = api_key or os.getenv('NEWSDATA_API_KEY')
         if not self.api_key:
             raise ValueError("NewsData API key is required. Set it as NEWSDATA_API_KEY environment variable or pass it to the constructor.")
+        
+        # Initialize Gemini
+        genai.configure(api_key=gemini_key)
+        self.model = genai.GenerativeModel('gemini-pro')
         
         self.base_url = "https://newsdata.io/api/1/news"
         self.stocks = [
@@ -24,6 +30,58 @@ class StockNewsAPI:
             "BAC",   # Bank of America
             "WMT",   # Walmart
         ]
+
+    def generate_questions(self, article: Dict) -> List[str]:
+        """Generate insightful questions about a news article using Gemini."""
+        max_retries = 3
+        retry_delay = 2  # seconds
+        
+        for attempt in range(max_retries):
+            try:
+                prompt = f"""
+                Based on this news article:
+                Title: {article['title']}
+                Description: {article.get('description', '')}
+                
+                Generate 3 insightful, analytical questions that an investor might ask about the implications of this news.
+                Return only a Python list of strings, with each question being a complete sentence ending with a question mark.
+                Focus on market impact, business strategy, and future implications.
+                Example format: ["Question 1?", "Question 2?", "Question 3?"]
+                """
+                
+                response = self.model.generate_content(prompt)
+                response_text = response.text.strip()
+                # Remove any markdown code block indicators
+                response_text = response_text.replace('```python', '').replace('```', '')
+                # Safely evaluate the string as a Python list
+                try:
+                    questions = eval(response_text)
+                    if isinstance(questions, list) and len(questions) >= 3:
+                        return questions[:3]
+                except:
+                    # If eval fails, try to extract questions using string manipulation
+                    questions = [q.strip() for q in response_text.split('?') if q.strip()]
+                    questions = [f"{q}?" for q in questions]
+                    if questions:
+                        return questions[:3]
+                
+                # If we get here, use default questions
+                raise ValueError("Could not parse questions from response")
+                
+            except Exception as e:
+                print(f"Error generating questions (attempt {attempt + 1}/{max_retries}): {str(e)}")
+                if "429" in str(e):  # Rate limit error
+                    time.sleep(retry_delay * (attempt + 1))  # Exponential backoff
+                    continue
+                
+                if attempt == max_retries - 1:  # Last attempt
+                    return [
+                        "What are the potential market implications of this news?",
+                        "How might this affect the company's competitive position?",
+                        "What could be the long-term impact on the industry?"
+                    ]
+            
+            time.sleep(1)  # Small delay between successful calls
 
     def get_past_week_news(self) -> Dict[str, List[Dict]]:
         """
@@ -53,8 +111,14 @@ class StockNewsAPI:
                         if stock.lower() in article.get('title', '').lower() or
                            stock.lower() in article.get('description', '').lower()
                     ]
+                    
+                    # Generate questions for each article
+                    for article in filtered_results:
+                        article['questions'] = self.generate_questions(article)
+                        time.sleep(1)  # Add delay between article processing
+                    
                     all_news[stock] = filtered_results
-                    print(f"Successfully fetched {len(all_news[stock])} news items for {stock}")
+                    print(f"Successfully fetched and analyzed {len(all_news[stock])} news items for {stock}")
                 else:
                     print(f"Failed to fetch news for {stock}: {data.get('message', 'Unknown error')}")
                     all_news[stock] = []
@@ -65,8 +129,7 @@ class StockNewsAPI:
             
             # Add a small delay to avoid rate limiting
             if stock != self.stocks[-1]:  # Don't delay after the last request
-                import time
-                time.sleep(1)
+                time.sleep(2)
         
         return all_news
 

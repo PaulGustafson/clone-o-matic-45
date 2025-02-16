@@ -36,7 +36,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "How will the potential breakouts or reversals in the identified stocks affect market momentum and investor confidence?",
+        "What business strategies may companies like Apple, Microsoft, and Meta adopt based on the suggested price movements of their stocks?",
+        "What long-term implications might these stock price fluctuations have for the overall economic landscape and investment decisions in the future?"
+      ]
     }
   ],
   "MSFT": [
@@ -76,7 +81,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of these predicted price levels for the broader stock market?",
+        "How might these price targets influence the business strategies of the companies mentioned (e.g., AAPL, MSFT, NVDA)?",
+        "What long-term trends or developments within the technology sector could further drive market performance in the direction indicated by these price predictions?"
+      ]
     }
   ],
   "GOOGL": [
@@ -116,7 +126,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "How will Wayfair's integration of Google AI affect its market share and competitive advantage in the e-commerce furniture industry?",
+        "Will the enhanced product cataloging and shopping experience positively impact Wayfair's average order value and customer lifetime value?",
+        "What strategies does Wayfair plan to implement to capitalize on the long-term growth potential of AI-powered shopping experiences?"
+      ]
     },
     {
       "article_id": "70d45543bbd97d8b9b8c426383fdff20",
@@ -149,7 +164,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": true
+      "duplicate": true,
+      "questions": [
+        "How will the delay in the TikTok ban impact TikTok's valuation and user base in the US market?",
+        "What implications does TikTok's return to app stores have for its long-term business strategy and growth prospects?",
+        "What are the potential antitrust and regulatory risks that TikTok may face in the future given the current political climate and scrutiny?"
+      ]
     },
     {
       "article_id": "46fb5e37cb9f0e804327cd81f4a9be4a",
@@ -180,7 +200,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "dbb9d067424a0e31b7b716a147209e4d",
@@ -232,7 +257,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "How would blocking Google's investments in AI startups affect the competitive landscape for both Anthropic and OpenAI?",
+        "What strategic implications does the proposed remedy have for Google's overall business and its position in the AI market?",
+        "Could the court's decision on Anthropic's plea have broader implications for the regulation of technology companies and innovation in the AI industry?"
+      ]
     },
     {
       "article_id": "0b47ed63cc66c625f4d4efb95a0b04bb",
@@ -270,7 +300,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "How will TikTok's re-entry into the app stores impact the market for social media and technology companies?",
+        "What does this news reveal about TikTok's competitive strategy and its ability to navigate regulatory hurdles?",
+        "What are the long-term market implications of Wall Street's positive performance in light of the ongoing economic uncertainty?"
+      ]
     },
     {
       "article_id": "5bb6da5c78366d7a41dfe9bc4c633844",
@@ -301,7 +336,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "How will the reinstatement of TikTok in the U.S. app stores impact the company's market share and revenue growth potential?",
+        "What business strategies is TikTok likely to adopt in response to this development, and how will these strategies affect its competitive advantage?",
+        "Does the news suggest a larger trend toward government regulation of technology companies, and what implications might this have for the future of the industry?"
+      ]
     },
     {
       "article_id": "39a0c5a3712c6c33f53f140a2766811e",
@@ -334,7 +374,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": true
+      "duplicate": true,
+      "questions": [
+        "How will TikTok's return to US app stores impact the market valuations of its competitors and the digital advertising landscape?",
+        "What adjustments will TikTok make to its business strategy in the US to mitigate potential regulatory headwinds and capitalize on market opportunities?",
+        "Can TikTok sustain its growth trajectory in the US and navigate geopolitical uncertainties to maintain its position as a dominant social media platform?"
+      ]
     },
     {
       "article_id": "c25f49e558c66740c6b3ec6b130d4971",
@@ -379,7 +424,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "How will DeepSeek's cost-effective AI models impact Google DeepMind's market share and revenue generation?",
+        "What strategic adjustments is Google DeepMind considering in response to DeepSeek's disruptive innovation, and how will these affect its business operations?",
+        "What are the potential long-term implications of DeepSeek's advancements for the development and commercialization of AI technology?"
+      ]
     },
     {
       "article_id": "733ace88378674a5be6b84a7ab1d00c7",
@@ -412,7 +462,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": true
+      "duplicate": true,
+      "questions": [
+        "How will Google's perceived technological superiority over DeepSeek impact its market share and competitive positioning in the AI industry?",
+        "What are the implications of Google's confidence in its AI technology for its business strategy, such as potential acquisitions or research investments?",
+        "How might the ongoing rivalry between Google and DeepSeek shape the future of AI development and its impact on society?"
+      ]
     },
     {
       "article_id": "51942e7868fed89054aa14563b2606b4",
@@ -443,7 +498,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications for competitors like Instagram and Snapchat following TikTok's return to app stores?",
+        "How will TikTok adapt its business strategy to cater to different user demographics and regulatory environments in the future?",
+        "What are the long-term implications for the social media landscape and the broader technology industry with TikTok's continued expansion?"
+      ]
     }
   ],
   "AMZN": [],
@@ -484,7 +544,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications if SPY breaks below its key support level of 608.35, and how would it affect the overall market sentiment?",
+        "How does the divergence between SPY's bullish targets and QQQ's bearish targets indicate the contrasting performance expectations for the broader market and the technology sector?",
+        "Given the focus on price, volume, and options flow in the proprietary formula, how reliable is this technical analysis tool in predicting future stock movements, and are there any limitations or biases to consider?"
+      ]
     }
   ],
   "META": [
@@ -517,7 +582,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "How will the reduction in DEI efforts impact the reputation and brand value of tech companies, particularly in the context of a diverse consumer base?",
+        "To what extent will the shift in business strategy toward less emphasis on DEI affect the ability of tech companies to compete in a global market where diversity is increasingly seen as a competitive advantage?",
+        "What are the long-term implications of this pullback on the future growth and profitability of tech companies in light of the growing importance of diversity and inclusion in the tech industry and beyond?"
+      ]
     },
     {
       "article_id": "c6778b6b513242c4f40414d29b4d1a5e",
@@ -553,7 +623,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What impact will Empowered Funds' reduced stake in Meta Platforms have on the company's share price and market capitalization?",
+        "Does this transaction suggest a shift in Empowered Funds' bullish or bearish outlook regarding Meta Platforms' business prospects?",
+        "Could Empowered Funds' sale of Meta Platforms shares be part of a larger strategy of reducing exposure to technology stocks?"
+      ]
     },
     {
       "article_id": "a48ac23f6e37a2be561dcb1c93f80c98",
@@ -589,7 +664,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What potential market implications could arise from this increase in stake, suggesting a shift in investor sentiment towards Meta Platforms?",
+        "Does this purchase indicate a strategic shift in Seelaus Asset Management LLC's portfolio allocation, and what insights can be drawn about their long-term investment strategy?",
+        "Considering the competitive landscape and recent challenges faced by Meta Platforms, what future implications might this investment have on the company's trajectory?"
+      ]
     },
     {
       "article_id": "7caf564830d38dec013ad0bfa88a4b33",
@@ -625,7 +705,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "335b86be6f6578c29620b67d7741af3d",
@@ -661,7 +746,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "248c5b4f5ca872fa37ea42fdd98850b3",
@@ -716,7 +806,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "2ee9b902a6518acd5ecb6db65f2d97ba",
@@ -752,7 +847,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": true
+      "duplicate": true,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "0a7d64e51a8fca852e50b020b30be5a5",
@@ -788,7 +888,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "65649d339c1f3253b7974d5b87660f54",
@@ -824,7 +929,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "90887c0036d49d6e24c245061321b15a",
@@ -879,7 +989,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     }
   ],
   "TSLA": [
@@ -917,7 +1032,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "39e166db987008ae548d7011cbb1fdf4",
@@ -955,7 +1075,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     },
     {
       "article_id": "80d41ba5be4e6430bcdd60111b4ad694",
@@ -1003,7 +1128,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     }
   ],
   "JPM": [
@@ -1038,7 +1168,12 @@
       "sentiment_stats": "ONLY AVAILABLE IN PROFESSIONAL AND CORPORATE PLANS",
       "ai_region": "ONLY AVAILABLE IN CORPORATE PLANS",
       "ai_org": "ONLY AVAILABLE IN CORPORATE PLANS",
-      "duplicate": false
+      "duplicate": false,
+      "questions": [
+        "What are the potential market implications of this news?",
+        "How might this affect the company's competitive position?",
+        "What could be the long-term impact on the industry?"
+      ]
     }
   ],
   "BAC": [],
