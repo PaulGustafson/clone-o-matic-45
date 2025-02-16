@@ -54,13 +54,13 @@ const Index = () => {
   const [newSymbol, setNewSymbol] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [newsData, setNewsData] = useState<Array<{
+  const [newsData, setNewsData] = useState<Record<string, Array<{
     source: string;
     title: string;
     summary: string;
     time: string;
     questions: string[];
-  }>>([]);
+  }>>>({});
 
   const fetchStockData = async (symbols: string[]) => {
     try {
@@ -82,22 +82,26 @@ const Index = () => {
 
   const fetchNewsData = () => {
     try {
-      // Flatten and process all news articles from all symbols
-      const allArticles = Object.values(stockNewsData).flat() as NewsArticle[];
+      // Process news data by stock symbol
+      const processedNewsBySymbol: Record<string, any[]> = {};
       
-      // Transform articles to match NewsCard props format
-      const processedNews = allArticles
-        .filter(article => article.title && article.source_name)
-        .map(article => ({
-          source: article.source_name,
-          title: article.title,
-          summary: article.content || "No summary available",
-          time: getRelativeTime(article.pubDate),
-          questions: generateQuestions(article.content || "")
-        }))
-        .slice(0, 6); // Get top 6 articles
+      // Process each stock's news articles
+      Object.entries(stockNewsData).forEach(([symbol, articles]) => {
+        if (Array.isArray(articles)) {
+          processedNewsBySymbol[symbol] = articles
+            .filter(article => article.title && article.source_name)
+            .map(article => ({
+              source: article.source_name,
+              title: article.title,
+              summary: article.content || "No summary available",
+              time: getRelativeTime(article.pubDate),
+              questions: generateQuestions(article.content || "")
+            }))
+            .slice(0, 3); // Limit to top 3 articles per symbol
+        }
+      });
 
-      setNewsData(processedNews);
+      setNewsData(processedNewsBySymbol);
     } catch (error) {
       console.error('Error processing news data:', error);
     }
@@ -205,10 +209,22 @@ const Index = () => {
 
           <section>
             <h2 className="text-3xl font-bold mb-6">Top Stories</h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              {newsData.map((news, index) => (
-                <NewsCard key={index} {...news} />
-              ))}
+            <div className="space-y-12">
+              {stocks.map((stock) => {
+                const stockNews = newsData[stock.symbol];
+                if (!stockNews || stockNews.length === 0) return null;
+
+                return (
+                  <div key={stock.symbol} className="space-y-4">
+                    <h3 className="text-2xl font-semibold text-news-accent">{stock.symbol}</h3>
+                    <div className="grid gap-6 md:grid-cols-2">
+                      {stockNews.map((news, index) => (
+                        <NewsCard key={index} {...news} />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </section>
         </main>
