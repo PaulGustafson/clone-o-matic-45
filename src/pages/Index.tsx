@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { StockTicker } from "@/components/StockTicker";
@@ -16,9 +17,8 @@ import stockNewsData from "../../api/stock_news.json";
 interface NewsArticle {
   source_name: string;
   title: string;
-  image_url?: string;
+  content: string;
   pubDate: string;
-  creator?: string | string[];
 }
 
 const initialSymbols = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "META"];
@@ -31,6 +31,16 @@ const getRelativeTime = (timestamp: string) => {
   const hours = Math.floor(diff / (1000 * 60 * 60));
   
   return `${hours}h ago`;
+};
+
+// Generate insightful questions based on article content
+const generateQuestions = (content: string): string[] => {
+  const questions = [
+    "What are the potential market implications?",
+    "How might this affect investor sentiment?",
+    "What could be the long-term impact?"
+  ];
+  return questions;
 };
 
 const Index = () => {
@@ -47,9 +57,9 @@ const Index = () => {
   const [newsData, setNewsData] = useState<Array<{
     source: string;
     title: string;
-    imageUrl: string;
+    summary: string;
     time: string;
-    authors?: string;
+    questions: string[];
   }>>([]);
 
   const fetchStockData = async (symbols: string[]) => {
@@ -70,20 +80,20 @@ const Index = () => {
     }
   };
 
-  const fetchNewsData = async () => {
+  const fetchNewsData = () => {
     try {
       // Flatten and process all news articles from all symbols
       const allArticles = Object.values(stockNewsData).flat() as NewsArticle[];
       
       // Transform articles to match NewsCard props format
       const processedNews = allArticles
-        .filter(article => article.title && article.source_name) // Ensure required fields exist
+        .filter(article => article.title && article.source_name)
         .map(article => ({
           source: article.source_name,
           title: article.title,
-          imageUrl: article.image_url || '/lovable-uploads/5a40a2f1-0262-44c9-b69c-577df111c31c.png',
+          summary: article.content || "No summary available",
           time: getRelativeTime(article.pubDate),
-          authors: article.creator ? (Array.isArray(article.creator) ? article.creator.join(', ') : article.creator) : undefined
+          questions: generateQuestions(article.content || "")
         }))
         .slice(0, 6); // Get top 6 articles
 
